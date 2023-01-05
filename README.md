@@ -1,6 +1,6 @@
 # ClearSkies Weather App
 
-## Running the appp
+## Running the app
 
 1. Ruby version: `3.1.1` AND Rails version: `7.0.3`
 2. In a terminal window, clone the project and `cd` into the project directory
