@@ -3,9 +3,11 @@
 ## Running the appp
 
 1. Ruby version: `3.1.1` AND Rails version: `7.0.3`
-2. Clone the project and `cd` into the project directory
+2. In a terminal window, clone the project and `cd` into the project directory
 3. Run `bundle install` to install gems required by the project
 4. Start the application by running `./bin/dev`
+5. Visit http://127.0.0.1:3000 in a browser window to visit the app
+
 
 ## Dependencies/Gems used
 
