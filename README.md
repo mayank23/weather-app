@@ -40,6 +40,6 @@
 ## How caching is implementing
 
 - I used `Rails.cache` which by default uses an In Memory Cache. 
-- Cached Weather results based on the zip code and number of forecast days expire after 30 mins. 
+- Cached Weather results based on the zip code AND number of forecast days expire after 30 mins. Allows for a better user experience. 
 
 
