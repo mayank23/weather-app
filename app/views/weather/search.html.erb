@@ -1,0 +1,19 @@
+<h1>My Weather App</h1>
+
+<%= form_with url: "/search", method: :get do |form| %>
+  <%= form.label :address, "Address:" %>
+  <%= form.text_field :address %>
+  <%= form.submit "Get Weather" %>
+<% end %>
+
+<h3>Daily Forecast <em title="Last Updated At: <%= @fetch_datetime %>">(<%= @is_stale ? "cached" : "fresh" %>)</em></h3>
+<dl>
+    <% @daily_forecast.each do |forecast| %>
+        <dt><%= forecast[:date].strftime("%A %B %d %Y") %> - <%= forecast[:description].titleize %> </dt>
+        <dd>Current: <%= forecast[:temperature][:current] %></dd>
+        <dd>High: <%= forecast[:temperature][:high] %></dd>
+        <dd>Low: <%= forecast[:temperature][:low] %></dd>
+        <dd>Humidity: <%= "#{forecast[:humidity]}%" %></dd>
+        <br>
+    <% end %>
+</dl>
