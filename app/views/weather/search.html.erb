@@ -1,19 +1,28 @@
-<h1>My Weather App</h1>
-
-<%= form_with url: "/search", method: :get do |form| %>
-  <%= form.label :address, "Address:" %>
-  <%= form.text_field :address %>
-  <%= form.submit "Get Weather" %>
-<% end %>
-
-<h3>Daily Forecast <em title="Last Updated At: <%= @fetch_datetime %>">(<%= @is_stale ? "cached" : "fresh" %>)</em></h3>
-<dl>
-    <% @daily_forecast.each do |forecast| %>
-        <dt><%= forecast[:date].strftime("%A %B %d %Y") %> - <%= forecast[:description].titleize %> </dt>
-        <dd>Current: <%= forecast[:temperature][:current] %></dd>
-        <dd>High: <%= forecast[:temperature][:high] %></dd>
-        <dd>Low: <%= forecast[:temperature][:low] %></dd>
-        <dd>Humidity: <%= "#{forecast[:humidity]}%" %></dd>
-        <br>
+<div class="grid grid-flow-row grid-cols-5 grid-rows-5">
+    <p class="col-span-5 row-span-1 text-4xl text-violet-500">Weather App</p>
+    <div class="col-span-5 row-span-1">
+      <%= form_with url: "/search",  method: :get do |form| %>
+        <%= form.label :address, "Address:", :class => "text-xl mxr-4" %>
+        <%= form.text_field :address, value: @form.address %>
+      <%= form.label :num_days, "# Forecast days:" , :class => "text-xl mx-4"%>
+        <%= select_tag(:num_days, options_for_select([['3 Days', '3'], ['5 Days', '5'], ['7 Days', '7'], ['10 Days', '10']], @form.num_days)) %>
+        <%= form.submit "Get Weather", :class => "button bg-violet-500 mx-4 px-2 py-2 rounded" %>
+      <% end %>
+      <% if @form.errors.size > 0 %>
+        <p class="text-xl text-bold text-red-600 my-8"><%= @form.errors.messages[:address].first %></p>
+      <% end %>
+    </div>
+    <% if @forecast %>
+          <p class="col-span-5 text-3xl">Daily Forecast <em title="Zip Code <%= @form.zip_code %>, Last Updated At: <%= Time.at(@forecast[:fetch_timestamp]).strftime("%m/%d/%Y %I:%M:%S %p")  %>">(<%= @is_stale ? "cached" : "fresh" %>)</em></p>
+          <% @forecast[:daily_forecast].each do |current_forecast| %>
+              <dl class="col-span-1 row-span-2 my-4 mx-4 px-2 py-2 backdrop-blur-lg <%= current_forecast[:color] %>">
+                <dt><%= current_forecast[:date].strftime("%A %B %d %Y") %> </dt>
+                <dd><%= current_forecast[:description].titleize %></dd>
+                <dd>Current: <%= current_forecast[:temperature][:current] %></dd>
+                <dd>High: <%= current_forecast[:temperature][:high] %></dd>
+                <dd>Low: <%= current_forecast[:temperature][:low] %></dd>
+                <dd>Humidity: <%= "#{current_forecast[:humidity]}%" %></dd>
+              </dl>
+          <% end %>
     <% end %>
-</dl>
+  </div>

@@ -1,7 +1,12 @@
-<h1>My Weather App</h1>
-
-<%= form_with url: "/search", method: :get do |form| %>
-  <%= form.label :address, "Address:" %>
-  <%= form.text_field :address %>
-  <%= form.submit "Get Weather" %>
-<% end %>
+<div class="grid grid-flow-row grid-cols-5 grid-rows-5">
+    <p class="col-span-5 row-span-2 text-4xl text-violet-500">Weather App</p>
+    <div class="col-span-5 row-span-1">
+      <%= form_with url: "/search",  method: :get do |form| %>
+        <%= form.label :address, "Address:", :class => "text-xl mxr-4" %>
+        <%= form.text_field :address %>
+      <%= form.label :num_days, "# Forecast days:" , :class => "text-xl mx-4"%>
+        <%= select_tag(:num_days, options_for_select([['3 Days', '3'], ['5 Days', '5'], ['7 Days', '7'], ['10 Days', '10']], '7')) %>
+        <%= form.submit "Get Weather", :class => "button bg-violet-500 mx-4 px-2 py-2 rounded" %>
+      <% end %>
+    </div>
+</div>
